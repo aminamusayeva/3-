@@ -1,40 +1,41 @@
 #include <iostream> 
 using namespace std;
-class BoundedArray {
-	 int startclass;
-	 int endclass;
-	 int size;
-	 int* students;
+class nmassiv { int *a; int size;
 public:
-BoundedArray(int startclass,int endclass):startclass(startclass),endclass(endclass)
+nmassiv(int size):size(size)
+{ 
+	try 
+	{
+		 a=new int[size];
+		 }
+		 catch(...)
+		 {
+			 cout<<"Память не выделилась"<<endl;
+			 exit(1);
+			 }
+			 }
+int &put(int i) 
 {
-	size=endclass-startclass+1;
-	students=new int [size];
-	}
-void put(int clas,int count)
-{
-    students[clas-startclass]=count;
-}
-void show() 
-{
-    for(int i=startclass;i<=endclass;i++) 
+    if (i<0 || i>=size)
     {
-        cout<<"class "<<i<<":"<<students[i-startclass]<<" student"<<endl;
+        cout<<"Выход за границы массива"<<endl;
+        exit(1);
     }
+    return a[i];
 }
-~BoundedArray()
-{
-    cout<<"before delete"<<endl;
-    delete [] students;
-    cout<<"after delete"<<endl;
+int get(int i) {
+    if (i<0 || i>=size) 
+    {
+        cout<<"Выход за границы массива"<<endl;
+        exit(1);
+    }
+    return a[i];
 }
 };
-int main(void)
+int main(void) 
 {
-BoundedArray ob(1,3);
-ob.put(1,25);
-ob.put(2,28);
-ob.put(3,30);
-ob.show();
+	 nmassiv a(10);
+a.put(2)=1;      
+cout<<a.get(2)<<endl;
 return 0;
 }
